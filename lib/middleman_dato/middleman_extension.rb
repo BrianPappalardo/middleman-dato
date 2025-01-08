@@ -69,9 +69,11 @@ module MiddlemanDato
     end
 
     def dato_collector
-      app.extensions[:collections].live_collector do |app, resources|
+      result = app.extensions[:collections].live_collector do |app, resources|
         app.dato_items_repo
       end
+      puts "dato_collector result: #{result.class} - #{result.inspect}" # Debugging
+      result
     end
 
     def items_repo
