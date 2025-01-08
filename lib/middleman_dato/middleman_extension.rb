@@ -72,7 +72,13 @@ module MiddlemanDato
       result = app.extensions[:collections].live_collector do |app, resources|
         app.dato_items_repo
       end
-      puts "dato_collector result: #{result.class} - #{result.inspect}" # Debugging
+    
+      # Attempt to convert LazyCollectorStep into a hash or array
+      if result.is_a?(Middleman::CoreExtensions::Collections::LazyCollectorStep)
+        # Convert to a hash or inspect contents
+        result = result.to_h if result.respond_to?(:to_h)
+      end
+    
       result
     end
 
